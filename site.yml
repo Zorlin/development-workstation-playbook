@@ -1,0 +1,29 @@
+---
+- name: Dev playbook
+  hosts: all
+  become: true
+
+  vars_files:
+    - "vars/dev.yml"
+
+  pre_tasks:
+    - name: Print Ansible info useful for development
+      debug:
+        msg:
+          - "{{ ansible_distribution }} {{ ansible_distribution_version }}"
+
+  tasks:
+    - name: Install Docker
+    - name: Install Docker-compose
+    - name: Install Ansible Molecule
+    - name: Install Ansible Mitogen
+    - name: Install yamllint
+    - name: Install ansible-lint
+    - name: Install pre-commit
+    - name: Check out my favourite repos
+    - name: Install Steam
+    - name: Install Chia
+    - name: Install Sia
+
+  roles:
+    # No roles yet.
