@@ -13,13 +13,18 @@
           - "{{ ansible_distribution }} {{ ansible_distribution_version }}"
 
   tasks:
+    - name: Install Ansible Mitogen
+      wget:
+        url: https://github.com/mitogen-hq/mitogen/archive/v0.3.0-rc.0.zip
+        dest: /opt/mitogen-v0.3.0-rc.0.zip
+
     - name: Install Docker
     - name: Install Docker-compose
     - name: Install Ansible Molecule
-    - name: Install Ansible Mitogen
     - name: Install yamllint
     - name: Install ansible-lint
     - name: Install pre-commit
+    - name: Install microk8s
     - name: Check out my favourite repos
     - name: Install Steam
     - name: Install Chia
