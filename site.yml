@@ -13,11 +13,6 @@
           - "{{ ansible_distribution }} {{ ansible_distribution_version }}"
 
   tasks:
-#    - name: Install Ansible Mitogen
-#      wget:
-#        url: https://github.com/mitogen-hq/mitogen/archive/v0.3.0-rc.0.zip
-#        dest: /opt/mitogen-v0.3.0-rc.0.zip
-
     - name: Install apt repository stuff
       package:
         name:
@@ -37,11 +32,35 @@
         state: present
         filename: docker
 
-#    - name: Install Docker-compose
-#    - name: Install Ansible Molecule
-#    - name: Install yamllint
-#    - name: Install ansible-lint
-#    - name: Install pre-commit
+    - name: Install Docker
+      package:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+
+    - name: Install Docker-compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.28.5/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+        owner: root
+        group: root
+
+    - name: Install Ansible Molecule
+      pip:
+        name: molecule
+
+    - name: Install yamllint and ansible-lint
+      package:
+        name:
+          - yamllint
+          - ansible-lint
+
+    - name: Install pre-commit
+      pip:
+        name: pre-commit
+
 #    - name: Install microk8s
 #    - name: Check out my favourite repos
 #    - name: Install Steam
