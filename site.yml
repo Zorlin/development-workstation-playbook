@@ -13,6 +13,15 @@
           - "{{ ansible_distribution }} {{ ansible_distribution_version }}"
 
   tasks:
+    - name: Install common utilities
+      package:
+        name:
+          - screen
+          - wget
+          - links
+          - parallel
+          - htop
+
     - name: Install apt repository stuff
       package:
         name:
@@ -61,9 +70,48 @@
       pip:
         name: pre-commit
 
+    - name: Install snapd
+      apt:
+        name: snapd
+        state: present
+
 #    - name: Install microk8s
+#      community.general.snap:
+#        name: microk8s
+#        classic: yes
+
 #    - name: Check out my favourite repos
-#    - name: Install Steam
+    - name: Check out moosefs-playbook
+      git:
+        repo: git@github.com:Zorlin/moosefs-playbook.git
+        dest: /home/wings/projects/moosefs-playbook
+      become: false
+
+    - name: Check out ansible-role-moosefs
+      git:
+        repo: git@github.com:Zorlin/ansible-role-moosefs.git
+        dest: /home/wings/projects/ansible-role-moosefs
+      become: false
+
+    - name: Check out upload-toolkit
+      git:
+        repo: git@github.com:riffcc/upload-toolkit.git
+        dest: /home/wings/projects/upload-toolkit
+      become: false
+
+    - name: Install Steam
+      apt:
+        deb: https://cdn.akamai.steamstatic.com/client/installer/steam.deb
+
+    - name: Install qBitTorrent repo
+      apt_repository:
+        repo: ppa:qbittorrent-team/qbittorrent-stable
+
+
+    - name: Install qBitTorrent
+      apt:
+        name: qbittorrent
+
 #    - name: Install Chia
 #    - name: Install Sia
 
